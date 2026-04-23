@@ -1,0 +1,63 @@
+name: Pipeline de Testes VR - Frontend & API
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: 
+
+jobs:
+  tests-e2e:
+    name: Testes de Front-end (Cypress)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend 
+    
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Rodar Testes de Front-end (Headless)
+        run: npx cypress run --browser chrome
+
+      - name: Upload de Screenshots (Falhas)
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: frontend/cypress/screenshots 
+
+  tests-api:
+    name: Testes de API (Ruby/Cucumber)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Instalar Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' 
+          bundler-cache: true 
+
+      - name: Instalar Dependências (Gems)
+        run: bundle install
+
+      - name: Rodar Testes de API
+        run: bundle exec cucumber

@@ -1,0 +1,25 @@
+# Node / Cypress
+node_modules/
+cypress/videos/
+cypress/screenshots/
+cypress/fixtures/example.json
+.target/
+.command_log
+cypress.env.json
+
+# Ruby / Cucumber
+.bundle/
+vendor/bundle
+vendor/cache
+vendor/gems
+vendor/spec
+.ruby-version
+.ruby-gemset
+coverage/
+*.log
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db

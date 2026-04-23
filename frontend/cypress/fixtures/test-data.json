@@ -1,0 +1,12 @@
+{
+    "//": "Massa de dados que define os limites para a geração aleatória, garantindo que o teste opere dentro de faixas válidas do sistema (usei esses valores apenas como exemplo).",
+    "produtos": {
+        "auto": {
+            "quantidadeMinima": 1,
+            "quantidadeMaxima": 10,
+            "creditoMinimo": 100,
+            "creditoMaximo": 500,
+            "nome": "Auto"
+        }
+    }
+}
