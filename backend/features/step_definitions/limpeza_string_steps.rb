@@ -7,16 +7,16 @@ end
 Quando(/^eu aplicar os marcadores (.*)$/) do |marcadores_string|
   require 'json'
   
-  # 1. Limpamos espaços extras que vêm da tabela do Cucumber (.strip)
-  # 2. Substituímos aspas simples por duplas para o JSON ficar válido
+  # Tratamento da string vinda do Cucumber para garantir um parse de JSON válido.
+  # Isso permite que o teste aceite diferentes formatos de lista via tabelas ou strings.
   string_limpa = marcadores_string.strip.gsub("'", '"')
-  
   @marcadores = JSON.parse(string_limpa)
   
-  # Chamamos a classe que criamos na pasta lib
+  # Delegação da lógica para uma classe especializada (lib), mantendo os steps limpos.
   @resultado = ProcessadorTexto.limpar(@entrada, @marcadores)
 end
 
 Então('o resultado final deve ser {string}') do |saida_esperada|
+  # Validação da saída processada vs o resultado esperado definido no cenário.
   expect(@resultado).to eq(saida_esperada)
 end
