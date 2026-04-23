@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests-e2e:
-    name: Testes de Front-end (Cypress)
+    name: Testes de Front-end 
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -40,7 +40,7 @@ jobs:
           path: frontend/cypress/screenshots 
 
   tests-api:
-    name: Testes de API (Ruby/Cucumber)
+    name: Testes de API 
     runs-on: ubuntu-latest
     defaults:
       run:
